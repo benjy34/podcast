@@ -287,6 +287,11 @@ async def search(q: str):
         "episodes": [Episode(**episode) for episode in episode_results]
     }
 
+# Add root endpoint
+@app.get("/")
+async def root():
+    return {"message": "PodcastHub API is running!"}
+
 # Include the router in the main app
 app.include_router(api_router)
 
