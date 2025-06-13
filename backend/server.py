@@ -40,6 +40,13 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 # Create the main app without a prefix
 app = FastAPI()
 
+@app.get("/ping")
+async def ping():
+    try:
+        await db.command("ping")
+        return {"message": "MongoDB connection successful!"}
+    except Exception as e:
+        return {"error": str(e)}
 # Mount static files for serving audio
 app.mount("/api/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
